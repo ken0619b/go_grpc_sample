@@ -64,7 +64,7 @@ type IssLocation struct {
 type server struct{}
 
 // SayHello implements helloworld.GreeterServer
-func (s *server) GetIssLocation(ctx context.Context, in *pb.IssRequest) (*pb.IssResponse, error) {
+func (s *server) GetLoc(ctx context.Context, in *pb.LocRequest) (*pb.LocReply, error) {
 	log.Printf("request has been recieved")
 
 	// get ISS Location with calling an API
@@ -88,7 +88,7 @@ func (s *server) GetIssLocation(ctx context.Context, in *pb.IssRequest) (*pb.Iss
 	// fmt.Println(time.Unix(iss_location.Timestamp, 0))
 	// fmt.Println(iss_location.IssPosition)
 
-	return &pb.IssResponse{Longitude: iss_location.IssPosition.Longitude, Latitude: iss_location.IssPosition.Latitude}, nil
+	return &pb.LocReply{Longitude: iss_location.IssPosition.Longitude, Latitude: iss_location.IssPosition.Latitude}, nil
 }
 
 func main() {
@@ -97,7 +97,7 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	pb.RegisterIssServer(s, &server{})
+	pb.RegisterLocDetectorServer(s, &server{})
 	// Register reflection service on gRPC server.
 	reflection.Register(s)
 	if err := s.Serve(lis); err != nil {

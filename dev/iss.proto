@@ -14,20 +14,20 @@
 
 syntax = "proto3";
 
-package iss_api;
+package iss;
 
 // The greeting service definition.
-service LocationDetector {
+service LocDetector {
   // Sends a greeting
   // rpc SayHello (HelloRequest) returns (HelloReply) {}
-  rpc GetIssLocation (IssRequest) returns (IssReply) {}
+  rpc GetLoc (LocRequest) returns (LocReply) {}
 }
 
-message IssRequest {
-
+message LocRequest {
+  string message = 1;
 }
 
-message IssReply {
+message LocReply {
   string longitude = 1;
 	string latitude = 2;
 }
